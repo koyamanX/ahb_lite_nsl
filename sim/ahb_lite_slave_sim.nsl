@@ -1,0 +1,91 @@
+#include "ahb_lite_slave.h"
+#include "ahb_lite.h"
+
+declare ahb_lite_slave_sim simulation {}
+module ahb_lite_slave_sim {
+	ahb_lite_slave slave;
+	wire addr[32];
+	reg r = 0;
+	reg cnt[32] = 0;
+	reg a[32] = 0;
+	reg op = 0;
+	reg byteen[3] = 0;
+	reg x[5] = 0;
+	mem memory[32][8] = {0};
+	func_self tst;
+	func_self read(addr);
+	func_self idle();
+	func_self ok();
+	func_self wait_req();
+	integer i;
+
+	generate(i = 0; i < 32; i++) {
+		memory[i] := i;
+	}
+
+	slave.HCLK = m_clock;
+	slave.HRESETn = ~p_reset;
+	slave.HREADY = slave.HREADYOUT;
+
+	func tst seq {
+		read(0x00000000);
+		read(0x00000004);
+		/* simulates extended address phase */
+		read(0x00000004);
+		read(0x00000004);
+		read(0x00000004);
+		read(0x00000004);
+		read(0x00000004);
+		read(0x00000004);
+		read(0x00000004);
+		idle();
+		idle();
+		idle();
+	}
+	func read {
+		slave.HADDR = addr;
+		slave.HWRITE = READ;
+		slave.HSIZE = WORD;
+		slave.HTRANS = NONSEQ;
+		slave.HBURST = SINGLE;
+		slave.HSEL = 1;
+	}
+	func idle {
+		slave.HSEL = 1;
+		slave.HTRANS = IDLE;
+	}
+
+	func slave.mem_req_read {
+		if(wait_req) {
+			a := slave.address;
+			op := READ;
+			byteen := slave.byteen;
+			slave.mem_wait();
+		} else {
+			slave.rdata = {memory[slave.address], memory[slave.address+1], memory[slave.address+2], memory[slave.address+3]};
+		}
+	}
+
+	func ok {
+		slave.mem_ok();
+		slave.rdata = {memory[a], memory[a+1], memory[a+2], memory[a+3]};
+	}
+
+	if(~r) {
+		r := ~r;
+		tst();
+	}
+
+	if(cnt == 0xf) {
+		_finish();
+	} else if(cnt == 0x8) {
+		cnt++;
+		ok();
+	} else if(cnt == 0x9) {
+		cnt++;
+	} else {
+		cnt++;
+		wait_req();
+	}
+
+}

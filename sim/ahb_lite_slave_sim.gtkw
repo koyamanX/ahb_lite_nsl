@@ -1,0 +1,49 @@
+[*]
+[*] GTKWave Analyzer v3.3.94 (w)1999-2018 BSI
+[*] Fri Mar 15 18:54:36 2019
+[*]
+[dumpfile_size] 5528
+[timestart] 0
+[size] 1366 704
+[pos] -51 -51
+*-3.411647 20 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb.
+[treeopen] tb.ahb_lite_slave_sim_instance.
+[sst_width] 228
+[signals_width] 230
+[sst_expanded] 1
+[sst_vpaned_height] 350
+@28
+tb.ahb_lite_slave_sim_instance.slave.HCLK
+tb.ahb_lite_slave_sim_instance.slave.HRESETn
+tb.ahb_lite_slave_sim_instance.slave.HSEL
+tb.ahb_lite_slave_sim_instance.slave.HWRITE
+@22
+tb.ahb_lite_slave_sim_instance.slave.HADDR[31:0]
+tb.ahb_lite_slave_sim_instance.slave.HRDATA[31:0]
+@28
+tb.ahb_lite_slave_sim_instance.slave.HTRANS[1:0]
+tb.ahb_lite_slave_sim_instance.slave.HBURST[2:0]
+tb.ahb_lite_slave_sim_instance.slave.HREADY
+tb.ahb_lite_slave_sim_instance.slave.HREADYOUT
+tb.ahb_lite_slave_sim_instance.slave.HSIZE[2:0]
+tb.ahb_lite_slave_sim_instance.slave.HRESP
+@22
+tb.ahb_lite_slave_sim_instance.slave.HWDATA[31:0]
+tb.ahb_lite_slave_sim_instance.slave.HPROT[3:0]
+@28
+tb.ahb_lite_slave_sim_instance.slave.HMASTLOCK
+tb.ahb_lite_slave_sim_instance.slave.req
+tb.ahb_lite_slave_sim_instance.slave.mem_req_read
+tb.ahb_lite_slave_sim_instance.slave.mem_req_write
+tb.ahb_lite_slave_sim_instance.slave.mem_ok
+tb.ahb_lite_slave_sim_instance.slave.mem_wait
+tb.ahb_lite_slave_sim_instance.slave.wait_state
+tb.ahb_lite_slave_sim_instance.slave.address_phase
+tb.ahb_lite_slave_sim_instance.slave.data_phase
+tb.ahb_lite_slave_sim_instance.slave.wait_req
+tb.ahb_lite_slave_sim_instance.ok
+@29
+tb.ahb_lite_slave_sim_instance.wait_req
+[pattern_trace] 1
+[pattern_trace] 0
