@@ -1,0 +1,55 @@
+[*]
+[*] GTKWave Analyzer v3.3.94 (w)1999-2018 BSI
+[*]
+[dumpfile_size] 6190
+[timestart] 0
+[size] 1366 662
+[pos] -51 -51
+*-4.478653 20 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb.
+[treeopen] tb.ahb_lite_master_sim_instance.
+[sst_width] 329
+[signals_width] 300
+[sst_expanded] 1
+[sst_vpaned_height] 331
+@28
+tb.ahb_lite_master_sim_instance.master.HCLK
+tb.ahb_lite_master_sim_instance.master.HRESETn
+@22
+tb.ahb_lite_master_sim_instance.master.HADDR[31:0]
+@28
+tb.ahb_lite_master_sim_instance.master.HWRITE
+@22
+tb.ahb_lite_master_sim_instance.master.HRDATA[31:0]
+tb.ahb_lite_master_sim_instance.master.HWDATA[31:0]
+@28
+tb.ahb_lite_master_sim_instance.master.HREADY
+tb.ahb_lite_master_sim_instance.master.HBURST[2:0]
+tb.ahb_lite_master_sim_instance.master.HSIZE[2:0]
+tb.ahb_lite_master_sim_instance.master.HTRANS[1:0]
+@23
+tb.ahb_lite_master_sim_instance.master.HPROT[3:0]
+@28
+tb.ahb_lite_master_sim_instance.master.HMASTLOCK
+tb.ahb_lite_master_sim_instance.master.address_phase
+tb.ahb_lite_master_sim_instance.master.address_phase_ext
+tb.ahb_lite_master_sim_instance.master.data_phase
+tb.ahb_lite_master_sim_instance.master.ext
+tb.ahb_lite_master_sim_instance.master.wait_state
+tb.ahb_lite_master_sim_instance.master.read
+@22
+tb.ahb_lite_master_sim_instance.master.address[31:0]
+tb.ahb_lite_master_sim_instance.master.rdata[31:0]
+@28
+tb.ahb_lite_master_sim_instance.master.write
+@22
+tb.ahb_lite_master_sim_instance.master.wdata[31:0]
+tb.ahb_lite_master_sim_instance.master.dataa[31:0]
+tb.ahb_lite_master_sim_instance.master.datad[31:0]
+@28
+tb.ahb_lite_master_sim_instance.master.opa
+tb.ahb_lite_master_sim_instance.master.opd
+tb.ahb_lite_master_sim_instance.master.ready
+tb.ahb_lite_master_sim_instance.nop
+[pattern_trace] 1
+[pattern_trace] 0

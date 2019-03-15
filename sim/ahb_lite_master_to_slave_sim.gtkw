@@ -1,0 +1,41 @@
+[*]
+[*] GTKWave Analyzer v3.3.94 (w)1999-2018 BSI
+[*]
+[dumpfile_size] 6561
+[timestart] 0
+[size] 1366 704
+[pos] -39 -39
+*-3.411647 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb.
+[treeopen] tb.ahb_lite_master_to_slave_sim_instance.
+[sst_width] 325
+[signals_width] 211
+[sst_expanded] 1
+[sst_vpaned_height] 177
+@28
+tb.ahb_lite_master_to_slave_sim_instance._master_HCLK
+@22
+tb.ahb_lite_master_to_slave_sim_instance._master_HADDR[31:0]
+tb.ahb_lite_master_to_slave_sim_instance._master_HRDATA[31:0]
+tb.ahb_lite_master_to_slave_sim_instance._master_HWDATA[31:0]
+@28
+tb.ahb_lite_master_to_slave_sim_instance._master_HREADY
+tb.ahb_lite_master_to_slave_sim_instance._master_HWRITE
+tb.ahb_lite_master_to_slave_sim_instance._master_read
+tb.ahb_lite_master_to_slave_sim_instance._master_write
+tb.ahb_lite_master_to_slave_sim_instance._slave_HCLK
+@22
+tb.ahb_lite_master_to_slave_sim_instance._slave_HADDR[31:0]
+tb.ahb_lite_master_to_slave_sim_instance._slave_HRDATA[31:0]
+tb.ahb_lite_master_to_slave_sim_instance._slave_HWDATA[31:0]
+@28
+tb.ahb_lite_master_to_slave_sim_instance._slave_HREADYOUT
+tb.ahb_lite_master_to_slave_sim_instance._slave_HREADY
+tb.ahb_lite_master_to_slave_sim_instance._slave_HSEL
+tb.ahb_lite_master_to_slave_sim_instance._slave_HWRITE
+tb.ahb_lite_master_to_slave_sim_instance._slave_mem_req_read
+tb.ahb_lite_master_to_slave_sim_instance._slave_mem_req_write
+tb.ahb_lite_master_to_slave_sim_instance._slave_mem_ok
+tb.ahb_lite_master_to_slave_sim_instance._slave_mem_wait
+[pattern_trace] 1
+[pattern_trace] 0
