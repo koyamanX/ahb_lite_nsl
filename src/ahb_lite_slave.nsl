@@ -1,0 +1,69 @@
+#include "ahb_lite_slave.h"
+#include "ahb_lite.h"
+
+module ahb_lite_slave {		
+	reg hsel = 0;
+	reg haddr[32] = 0;
+	reg hwdata[32];
+	reg htrans[2] = 0;
+	reg hwrite = 0;
+	reg hsize[3] = 0;
+	wire req;
+
+	func_self address_phase();
+	func_self wait_req();
+	proc_name data_phase();
+	proc_name wait_state();
+
+	req = HREADY & HSEL & HTRANS[1] & ~HTRANS[0]; //nonseq transfer
+
+	if(~data_phase & ~wait_state) {
+		HREADYOUT = 1;
+	}
+
+	if(req) {
+		address_phase();
+	}
+
+	func address_phase {
+		haddr := HADDR;
+		hsize := HSIZE;
+		hwrite := HWRITE;
+		if(~wait_req) {
+			data_phase();
+		}
+	}
+
+	proc data_phase {
+		hwdata := HWDATA;
+		if(hwrite == READ) {
+			mem_req_read(haddr, hsize);
+		} else {
+			mem_req_write(haddr, hsize, HWDATA);
+		}
+		if(~mem_wait & mem_ok) {
+			finish();
+			done();
+			HREADYOUT = 1'b1;
+		} else {
+			wait_state();
+			wait_req();
+			HREADYOUT = 1'b0;
+		}
+	}
+
+	proc wait_state {
+		if(mem_ok) {
+			finish();
+			done();
+			HREADYOUT = 1'b1;
+		} else {
+			HREADYOUT = 1'b0;
+			wait_req();
+		}
+	}
+
+	HRDATA = rdata;
+	HRESP = OK;
+
+}
