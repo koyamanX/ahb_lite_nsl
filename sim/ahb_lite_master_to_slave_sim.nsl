@@ -1,0 +1,84 @@
+#include "ahb_lite_master.h"
+#include "ahb_lite_slave.h"
+#include "ahb_lite.h"
+
+
+declare ahb_lite_master_to_slave_sim simulation {}
+module ahb_lite_master_to_slave_sim {
+	ahb_lite_master master;
+	ahb_lite_slave slave;
+	reg r = 0;
+	reg cnt[32] = 0;
+	integer i;
+	func_self tst;
+	func_self dump;
+	mem memory[32][8] = {
+		0xff,
+		0xff,
+		0x00,
+		0x00
+	};
+
+	master.HCLK = m_clock;
+	master.HRESETn = ~p_reset;
+	slave.HCLK = m_clock;
+	slave.HRESETn = ~p_reset;
+
+	slave.HREADY = slave.HREADYOUT;
+	master.HREADY = slave.HREADYOUT;
+	
+	master.HRESP = slave.HRESP;
+	slave.HADDR = master.HADDR;
+	slave.HWDATA = master.HWDATA;
+	master.HRDATA = slave.HRDATA;
+	slave.HWRITE = master.HWRITE;
+	slave.HSIZE = master.HSIZE;
+	slave.HBURST = master.HBURST;
+	slave.HPROT = master.HPROT;
+	slave.HTRANS = master.HTRANS;
+	slave.HMASTLOCK = master.HMASTLOCK;
+	slave.HSEL = 1;
+
+	if(~r) {
+		r := ~r;
+		tst();
+	}
+
+	func tst seq {
+		master.write(0x00000000, WORD, 0x0, 0xffff0000);
+		master.write(0x00000004, WORD, 0x0, 0xffff0004);
+		master.write(0x00000008, WORD, 0x0, 0xffff0008);
+		master.write(0x0000000c, WORD, 0x0, 0xffff000c);
+		master.read(0x00000000, WORD, 0x0);
+		master.read(0x00000004, WORD, 0x0);
+		master.read(0x00000008, WORD, 0x0);
+		master.read(0x0000000c, WORD, 0x0);
+	}
+
+	if(cnt == 0x1f) {
+		dump();
+		_finish("finish");
+	} else {
+		cnt++;
+	}
+
+	func dump {
+		generate(i = 0; i < 32; i++) {
+			_display("%x : %x", i, memory[i]);
+		}
+	}
+
+	func slave.mem_req_read {
+		slave.rdata = {memory[slave.address], memory[slave.address+1], memory[slave.address+2], memory[slave.address+3]};
+		slave.mem_ok();	
+	}
+
+	func slave.mem_req_write {
+		memory[slave.address] := slave.wdata[7:0];
+		memory[slave.address+1] := slave.wdata[15:8];
+		memory[slave.address+2] := slave.wdata[23:16];
+		memory[slave.address+3] := slave.wdata[31:24];
+		slave.mem_ok();	
+	}
+
+}
