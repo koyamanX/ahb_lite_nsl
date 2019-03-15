@@ -1,0 +1,75 @@
+#include "ahb_lite_master.h"
+#include "ahb_lite.h"
+
+module ahb_lite_master {
+	reg hwrite = 0;
+	reg haddr[32] = 0;
+	reg hsize[3] = 0;
+	reg hprot[4] = 0;
+	reg data[32] = 0;
+	/* always the same */
+	reg hburst[3] = SINGLE;
+	reg hmastlock = LOW; 
+	reg htrans = NONSEQ;
+	func_self address_phase();
+	func_self wait_req();
+	proc_name address_phase_ext();
+	proc_name data_phase();
+	proc_name wait_state();
+
+	if((read | write ) & HREADY) {
+		address_phase();
+	}
+	func address_phase {
+		HWRITE = write;
+		HADDR = address;
+		HSIZE = byteen;
+		HBURST = SINGLE;
+		HPROT = prot;
+		HTRANS = NONSEQ;
+		HMASTLOCK = LOW;
+
+		/* save for future extended address phase */	
+		hwrite := write;
+		haddr := address;
+		hsize := byteen;
+		data := wdata;
+
+		if(~wait_req) {
+			data_phase();	
+		} else {
+			address_phase_ext();
+		}
+	}
+	proc address_phase_ext {
+		HWRITE = hwrite;
+		HADDR = haddr;
+		HSIZE = hsize;
+		HBURST = hburst;
+		HPROT = hprot;
+		HTRANS = htrans;
+		HMASTLOCK = hmastlock;
+
+		if(HREADY) {
+			finish();
+			data_phase();
+		}
+	}
+	proc data_phase {
+		HWDATA = data;	
+		if(HREADY) {
+			finish();
+		} else {
+			wait_req();
+			wait_state();
+		}
+	}
+	proc wait_state {
+		HWDATA = data;	
+		wait_req();
+		if(HREADY) {
+			finish();
+		}
+	}
+	rdata = HRDATA;
+}
