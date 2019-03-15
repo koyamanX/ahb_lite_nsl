@@ -1,0 +1,32 @@
+#include "ahb_lite_master.h"
+#include "ahb_lite.h"
+
+
+declare ahb_lite_master_sim simulation {}
+module ahb_lite_master_sim {
+	ahb_lite_master master;
+	reg r = 0;
+	reg cnt[32] = 0;
+	func_self tst;
+
+	master.HCLK = m_clock;
+	master.HRESETn = ~p_reset;
+	master.HREADY = 1;
+
+	if(~r) {
+		r := ~r;
+		tst();
+	}
+
+	func tst seq {
+		master.read(0x00000000, WORD, 0x0);
+		master.write(0x00000000, WORD, 0x0, 0xffffffff);
+	}
+
+	if(cnt == 0xf) {
+		_finish();
+	} else {
+		cnt++;
+	}
+
+}
