@@ -13,9 +13,24 @@ module ahb_lite_master {
 	reg htrans = NONSEQ;
 	func_self address_phase();
 	func_self wait_req();
+	func_self idle(); 
 	proc_name address_phase_ext();
 	proc_name data_phase();
 	proc_name wait_state();
+
+	func idle {
+		HADDR = 0x00000000;
+		HWRITE = 1'b0;
+		HSIZE = 3'b000;
+		HBURST = 3'b000;
+		HPROT = 4'b0000;
+		HTRANS = 2'b00; //idle transfer
+		HMASTLOCK = 1'b0;
+		//HWDATA = 0x00000000;
+	}
+	if(~address_phase & ~address_phase_ext) {
+			idle();
+	}
 
 	if((read | write ) & HREADY) {
 		address_phase();
