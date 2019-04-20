@@ -1,5 +1,5 @@
 TOP=ahb_lite_slave_sim
-CC=nsl2vl
+NCC=nsl2vl
 VCC=iverilog
 NSLOPT=-I$(SRCDIR)
 VERIOPT=
