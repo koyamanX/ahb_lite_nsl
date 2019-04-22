@@ -74,6 +74,7 @@ module ahb_lite_master {
 		HWDATA = data;	
 		if(HREADY) {
 			finish();
+			done();
 		} else {
 			wait_req();
 			wait_state();
